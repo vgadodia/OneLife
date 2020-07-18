@@ -128,14 +128,14 @@
                     <div class="main-navigation">
                       <ul class="main-menu">
                         <li class="menu-item">
-                          <a href="/" style="color: #48bbed;">Home</a>
+                          <a href="/" >Home</a>
                         </li>
                         <li class="menu-item"><a href="/upload">Upload</a></li>
                         <li class="menu-item">
                           <a href="/gethelp">Get Help</a>
                         </li>
                         <li class="menu-item">
-                          <a href="/forum">Forum</a>
+                          <a href="/forum" style="color: #48bbed;">Forum</a>
                         </li>
                       </ul>
                     </div>
@@ -151,13 +151,75 @@
           <script src="{{ url_for('static', filename='plugins/slick-1.8.1/slick.min.js') }}"></script>
           <script src="{{ url_for('static', filename='plugins/meanmenu/jquery.meanmenu.js') }}"></script>
           <script src="{{ url_for('static', filename='js/active.js') }}"></script>
-          <h1>Flask-SocketIO-Chat</h1>
-            <form method="POST">
-                {{ form.hidden_tag() }}
-                {{ form.name.label }}: {{ form.name() }} {% for error in form.name.errors %}{{ error }}{% endfor %}<br>
-                {{ form.room.label }}: {{ form.room() }} {% for error in form.room.errors %}{{ error }}{% endfor %}<br>
-                {{ form.submit() }}
-            </form>
+      
+        <section class="testimonial-section">
+          <div class="container">
+              <div class="row justify-content-center">
+                  <div class="col-lg-8">
+                      <div class="section-title">
+                          <h2 style="margin-top: -50px;">Community</h2>
+                          <!-- <p>We designed and tested prototypes that helped identify pain points in the account
+                              creation process. Together, we shaped the new standard.</p> -->
+                      </div>
+                  </div>
+              </div>
+              <!-- <div class="section-title">
+                  We designed and tested prototypes that helped identify pain points in the account
+                  creation process. Together, we shaped the new standard
+              </div> -->
+          </div>
+        </section>
+        
+        <section class="cta-section" style="margin-top:-100px;padding-bottom:100px;">
+          <div class="container" >
+              <div class="cta-inner-wrapper" style="background-color: #48bbed;">
+                  <div class="row justify-content-center">
+                      <div class="col-xl-7 col-lg-8" >
+                          <div class="cta-content">
+                              <!-- <span class="title-small-text">Ready to take action?</span> -->
+                              <!-- <h2>Try alz.vision!</h2> -->
+
+                              <h3 style="color:white;margin-bottom:50px;">Join our community!</h3>
+                              <!-- <h2 style="color:white;margin-top:50px;">NJ60BYD</h2> -->
+
+                              <!-- <h4 style="background-color: white;width:100%;">d</h4> -->
+
+                              <form method="POST">
+                                {{ form.hidden_tag() }}
+                                {{ form.name.label }}: {{ form.name() }} {% for error in form.name.errors %}{{ error }}{% endfor %}<br>
+                                {{ form.room.label }}: {{ form.room() }} {% for error in form.room.errors %}{{ error }}{% endfor %}<br>
+                                {{ form.submit() }}
+                              </form>
+
+                                  <div class="container" style="margin-bottom:-120px;margin-top: -100px;">
+                                      <div class="content" style="margin-bottom:-50px;">
+                                          <div class="box" style="margin-top: 50px">
+                                              <img style="width:540px;margin-bottom:50px;" src="{{ url_for('static', filename='image/result-licplate.png') }}">
+
+                                              <!-- {% for img in arr %}
+                                                  <img style="width:500px;margin-bottom:50px;" src="data:image/jpeg;base64, {{ img }}">
+                                              {% endfor %} -->
+                                             
+                                              <!-- <div style="margin-top:30px;">
+                                                  <p class="extra-info-text" style="font-weight: 500;">Enter a one sentence description of the memory shown above:</p>
+                                                  <div>
+                                                      <input id="input" type="text" name="redescription" placeholder="I played with my dog.">
+                                                  </div>
+                                                  <p class="extra-info-text" style="font-weight:500;font-size:16px;color:red;">{{ errorMessage }}</p>
+                                              </div> -->
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="cta-btn">
+                                      <!-- <button type="submit" class="btn btn-outlined--white btn-with-icon btn-height-60">Results</button> -->
+                                      <!-- <p class="extra-info-text">No credit card required</p> -->
+                                  </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
         </div>
     </body>
 </html>
