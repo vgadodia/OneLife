@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>HelmProtech</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='plugins/bootstrap-4.3.1/css/bootstrap.min.css') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='plugins/slick-1.8.1/slick.css') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='plugins/meanmenu/meanmenu.css') }}"/>
@@ -15,6 +17,27 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/component.css') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/demo.css') }}"/>
     <script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+        
+            var socket = io.connect('http://127.0.0.1:5000');
+        
+            socket.on('connect', function() {
+                socket.send('User has connected!');
+            });
+        
+            socket.on('message', function(msg) {
+                $("#messages").append('<li>'+msg+'</li>');
+                console.log('Received message');
+            });
+        
+            $('#sendbutton').on('click', function() {
+                socket.send($('#myMessage').val());
+                $('#myMessage').val('');
+            });
+        
+        });
+        </script>
     <style>
         #input {
             border: 3px solid white; 
@@ -89,7 +112,7 @@
                                 <div class="main-navigation">
                                     <ul class="main-menu">
                                         <li class="menu-item "><a href="/">Home</a></li>
-                                        <li class="menu-item "><a href="/upload">Upload</a></li>     
+                                        <li class="menu-item "><a href="/upload">Upload</a></li>       
                                         <li class="menu-item">
                                             <a href="/stats">Stats</a>
                                           </li>
@@ -98,7 +121,7 @@
                                           </li>
                                           <li class="menu-item">
                                             <a href="/forum">Forum</a>
-                                          </li>      
+                                          </li>   
                                         </ul>
                                 </div>
                                 <div class="mobile-menu"></div>
@@ -109,13 +132,13 @@
                 <section class="testimonial-section">
                     <div class="container">
                         <div class="row justify-content-center">
-                            <div class="col-lg-8">
+                            <!-- <div class="col-lg-8">
                                 <div class="section-title">
                                     <h2 style="margin-top: -50px;">See your result instantly</h2>
-                                    <!-- <p>We designed and tested prototypes that helped identify pain points in the account
-                                        creation process. Together, we shaped the new standard.</p> -->
+                                    <p>We designed and tested prototypes that helped identify pain points in the account
+                                        creation process. Together, we shaped the new standard.</p>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- <div class="section-title">
                             We designed and tested prototypes that helped identify pain points in the account
@@ -129,16 +152,19 @@
                     <div class="row justify-content-center">
                         <div class="col-xl-7 col-lg-8" >
                             <div class="cta-content">
+                                <ul id="messages"></ul>
+                                <input type="text" id="myMessage">
+                                <button id="sendbutton" type="submit">Send</button>
                                 <!-- <span class="title-small-text">Ready to take action?</span> -->
                                 <!-- <h2>Try alz.vision!</h2> -->
 
-                                <h5 style="color:white;">License plates of riders wearing helmets:</h5>
+                                <!-- <h5 style="color:white;">License plates of riders wearing helmets:</h5>
                                 <h2 style="color:white;margin-top:50px;">NJ60BYD</h2>
 
                                     <div class="container" style="margin-bottom:-120px;margin-top: -100px;">
                                         <div class="content" style="margin-bottom:-50px;">
                                             <div class="box" style="margin-top: 50px">
-                                                <img style="width:540px;margin-bottom:50px;" src="{{ url_for('static', filename='image/result-licplate.png') }}">
+                                                <img style="width:540px;margin-bottom:50px;" src="{{ url_for('static', filename='image/result-licplate.png') }}"> -->
 
                                                 <!-- {% for img in arr %}
                                                     <img style="width:500px;margin-bottom:50px;" src="data:image/jpeg;base64, {{ img }}">
@@ -169,17 +195,17 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-12" >
-                        <div class="section-title">
+                        <!-- <div class="section-title">
                             <h2 style="margin-top: -80px;">Real-time Object Detection</h2>
                             <p>We implemented the YOLO real-time object detection algorithm and used computer vision with opencv to detect motorcyclists and bikers, check whether they're wearing helmets, and if not, capture an image of their license plates.</p>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-lg-12">
-                        <div class="section-title">
-                            <!-- <h4 style="margin-bottom: 30px;">Change in memory score over time</h4> -->
-                            <!-- <p>Change in memory score over time</p> -->
+                        <!-- <div class="section-title">
+                            <h4 style="margin-bottom: 30px;">Change in memory score over time</h4>
+                            <p>Change in memory score over time</p>
                             <img style="width:400px;" src="{{ memory_vs_time_rf }}">
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <!-- <div class="section-title">
@@ -193,20 +219,20 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-12" >
-                        <div class="section-title">
+                        <!-- <div class="section-title">
                             <h2 style="margin-top: -80px;">Detailled Statistics</h2>
-                            <!-- <p>We used 2 different machine learning algorithms below: Random Forest regression and Support Vector regression. The Random Forest algorithm takes into account even the slightest changes in memory scores while the Support Vector regression algorithm creates a broader overview, helping you get two diverse perspectives on your change in memory over time!</p> -->
-                        </div>
+                            <p>We used 2 different machine learning algorithms below: Random Forest regression and Support Vector regression. The Random Forest algorithm takes into account even the slightest changes in memory scores while the Support Vector regression algorithm creates a broader overview, helping you get two diverse perspectives on your change in memory over time!</p>
+                        </div> -->
                     </div>
                     <div class="col-lg-12">
-                        <div class="section-title">
+                        <!-- <div class="section-title">
                             <h4 style="margin-bottom: 0px;">{{ perfect_rate }}%  of motorized two-wheel riders wore a helmet.</h4>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-lg-12">
-                        <div class="section-title">
+                        <!-- <div class="section-title">
                             <h4 style="margin-bottom: 0px;">{{ forget_rate }} people were fined for not wearing a helmet.</h4>
-                        </div>
+                        </div> -->
                     </div>
                     <!-- <div class="col-lg-12">
                         <div class="section-title">
