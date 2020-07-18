@@ -1,3 +1,6 @@
+from flask import session, redirect, url_for, render_template, request
+from . import main
+from .forms import LoginForm
 from flask import Flask, jsonify, request, send_file, render_template, redirect, url_for, make_response
 from flask_socketio import SocketIO, send
 import numpy as np
@@ -18,20 +21,40 @@ import pytesseract
 tfidf_vectorizer = pickle.load(open("vectorizer.pickle", "rb"))
 clf = pickle.load(open("model.pickle", "rb"))
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'mysecret'
-socketio = SocketIO(app, cors_allowed_origins='*')
+@main.route('/forum', methods=['GET', 'POST'])
+def index2():
+    """Login form to enter a room."""
+    form = LoginForm()
+    if form.validate_on_submit():
+        session['name'] = form.name.data
+        session['room'] = form.room.data
+        return redirect(url_for('.chat'))
+    elif request.method == 'GET':
+        form.name.data = session.get('name', '')
+        form.room.data = session.get('room', '')
+    return render_template('index2.html', form=form)
 
-@app.route('/')
+
+@main.route('/chat')
+def chat():
+    """Chat room. The user's name and room must be stored in
+    the session."""
+    name = session.get('name', '')
+    room = session.get('room', '')
+    if name == '' or room == '':
+        return redirect(url_for('.index'))
+    return render_template('chat.html', name=name, room=room)
+
+@main.route('/')
 def index():
     # print(predict('input1.jpg'))
     return render_template('index.html')
 
-@app.route('/upload')
+@main.route('/upload')
 def upload():
     return render_template('upload.html')
 
-@app.route('/upload', methods=['GET', 'POST'])
+@main.route('/upload', methods=['GET', 'POST'])
 def getupload():
     if request.method == "POST":
         try:
@@ -54,31 +77,10 @@ def getupload():
             return render_template('upload.html', errorMessage="Please either upload a photo or link a url.")
     return redirect("/")
 
-@app.route('/stats')
+@main.route('/stats')
 def stats():
     return render_template('stats.html')
 
-@app.route('/gethelp')
+@main.route('/gethelp')
 def gethelp():
     return render_template('gethelp.html')
-
-@socketio.on('message')
-def handleMessage(msg):
-    print('Message' + msg)
-    send(msg, broadcast=True)
-
-@app.route('/forum')
-def forums():
-    return render_template('forum.html')
-
-
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
-
-
-# if __name__ == '__main__':
-#     app.run(host="127.0.0.1", port=8080, debug=True)
-
-if __name__ == '__main__':
-    socketio.run(app)
