@@ -100,7 +100,14 @@ def help():
 
 @main.route('/gethelp', methods=['POST'])
 def gethelp():
-    zipcode = request.form['zipcode']
-    nearby = nearby_therapists.nearby(zipcode)
-    nearby = nearby[:9]
-    return render_template('gethelp.html', nearby=nearby)
+    try:
+        zipcode = request.form['zipcode']
+        nearby = nearby_therapists.nearby(zipcode)
+        nearby = nearby[:9]
+        return render_template('gethelp.html', nearby=nearby)
+    except:
+        return render_template("404.html")
+
+@main.route('/404')
+def error():
+    return render_template('404.html')
