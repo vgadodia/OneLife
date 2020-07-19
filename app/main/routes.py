@@ -69,15 +69,26 @@ def getupload():
                 text = pytesseract.image_to_string(Image.open(memory.filename))
                 result = clf.predict(tfidf_vectorizer.transform([text]))[0]
                 print(result)
+                if result == 1:
+                    text = "We have detected signs of suicidal and/or depressive thoughts in the messages. But don't worry, we are here to support you every step of the way. Please don't hesitate to call 1-800-273-8255 for help."
+                else:
+                    text = "We did not detect signs of suicidal and/or depressive thoughts in the messages. But still, please don't hesitate to call 1-800-273-8255 for further help."
+                return render_template('results.html', result=result, text=text)
             elif description != "":
                 result = clf.predict(tfidf_vectorizer.transform([description]))[0]
                 print(result)
+                if result == 1:
+                    text = "We have detected signs of suicidal and/or depressive thoughts in the messages. But don't worry, we are here to support you every step of the way. Please don't hesitate to call 1-800-273-8255 for help."
+                else:
+                    text = "We did not detect signs of suicidal and/or depressive thoughts in the messages. But still, please don't hesitate to call 1-800-273-8255 for further help."
+                
+                return render_template('results.html', result=result, text=text)
             else:
                 return render_template('upload.html', errorMessage="Please either upload a photo or link a url")
         except:
             print("EXCEPT")
             return render_template('upload.html', errorMessage="Please either upload a photo or link a url.")
-    return redirect("/")
+    return redirect("/upload")
 
 @main.route('/stats')
 def stats():
