@@ -11,7 +11,7 @@ def nearby(zip_code):
     with urllib.request.urlopen('https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q={}&facet=state&facet=timezone&facet=dst'.format(zip_code)) as response:
         loc = json.loads(response.read())
         lat, lon = loc['records'][0]['fields']['geopoint']
-        print(lat, lon)
+        # print(lat, lon)
 
     # with urllib.request.urlopen('https://maps.googleapis.com/maps/api/place/nearbysearch/output?key={}&location={},{}&radius={}&keyword={}'.format(zip_code, lat, lon, 5000, "therapists")) as response:
     #     loc = json.loads(response.read())
@@ -26,7 +26,7 @@ def nearby(zip_code):
     results = []
     for result in r['results']:
         results.append((result['name'], result['formatted_address']))
-    pprint(results[:5])
+    return(results)
 
 
-nearby("02459")
+# nearby("02459")

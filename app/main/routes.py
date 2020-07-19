@@ -12,6 +12,8 @@ import os
 import pathlib
 import hashlib
 import pickle
+from . import nearby_therapists
+
 try:
     from PIL import Image
 except ImportError:
@@ -82,5 +84,12 @@ def stats():
     return render_template('stats.html')
 
 @main.route('/gethelp')
-def gethelp():
+def help():
     return render_template('gethelp.html')
+
+@main.route('/gethelp', methods=['POST'])
+def gethelp():
+    zipcode = request.form['zipcode']
+    nearby = nearby_therapists.nearby(zipcode)
+    nearby = nearby[:9]
+    return render_template('gethelp.html', nearby=nearby)

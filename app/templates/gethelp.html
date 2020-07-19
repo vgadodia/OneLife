@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/component.css') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/demo.css') }}"/>
+    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
     <script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
     <style>
         #input {
@@ -66,9 +67,25 @@
                 display: none;
             }
         }
+
+        #upload-button {
+            background-color: transparent;
+        }
+        #upload-button:hover {
+            background-color: white;
+        }
     </style>
 </head>
 <body>
+    <script>
+        var arr = [];
+
+        function add_location(item){
+            arr.push(item);
+            console.log(arr);
+        }
+
+    </script>
     <div class="landing-wrapper">
             <header class="site-header">
                     <div class="container">
@@ -89,13 +106,13 @@
                                 <div class="main-navigation">
                                     <ul class="main-menu">
                                         <li class="menu-item "><a href="/">Home</a></li>
-                                        <li class="menu-item "><a href="/upload">Upload</a></li>     
+                                        <li class="menu-item "><a href="/upload">Upload</a></li>
                                           <li class="menu-item">
                                             <a href="/gethelp" style="color:#48bbed;">Get Help</a>
                                           </li>
                                           <li class="menu-item">
                                             <a href="/forum">Forum</a>
-                                          </li>      
+                                          </li>
                                         </ul>
                                 </div>
                                 <div class="mobile-menu"></div>
@@ -108,7 +125,7 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <div class="section-title">
-                                    <h2 style="margin-top: -50px;">See your result instantly</h2>
+                                    <h2 style="margin-top: -50px;">Find Nearby Therapists.</h2>
                                     <!-- <p>We designed and tested prototypes that helped identify pain points in the account
                                         creation process. Together, we shaped the new standard.</p> -->
                                 </div>
@@ -122,97 +139,119 @@
                 </section>
         <section class="cta-section" style="margin-top:-100px;margin-bottom:100px;">
             <div class="container" >
-                <div class="cta-inner-wrapper" style="background-color: #f9812a;">
-                    <div class="row justify-content-center">
-                        <div class="col-xl-7 col-lg-8" >
-                            <div class="cta-content">
+                <div class="cta-inner-wrapper" style="background-color: #48bbed;">
+                    <div class="row justify-content-center" >
+                        <div class="col-xl-7 col-lg-8">
+                            <div class="cta-content" >
                                 <!-- <span class="title-small-text">Ready to take action?</span> -->
-                                <!-- <h2>Try alz.vision!</h2> -->
+                                <!-- <h2>Upload an image of the text or copy and paste it in the text box.</h2> -->
+                                <!-- <p>We use an advanced machine learning algorithm to analyze the text and provide you with high quality results with over 90% accuracy.</p> -->
+                                <form action="/gethelp" method="POST" enctype="multipart/form-data">
+                                    <div class="container" style="margin-bottom:-120px;margin-top: -175px;">
+                                        <div class="content" >
+                                            <div class="box" style="margin-top: 50px;">
 
-                                <h5 style="color:white;">License plates of riders wearing helmets:</h5>
-                                <h2 style="color:white;margin-top:50px;">NJ60BYD</h2>
-
-                                    <div class="container" style="margin-bottom:-120px;margin-top: -100px;">
-                                        <div class="content" style="margin-bottom:-50px;">
-                                            <div class="box" style="margin-top: 50px">
-                                                <img style="width:540px;margin-bottom:50px;" src="{{ url_for('static', filename='image/result-licplate.png') }}">
-
-                                                <!-- {% for img in arr %}
-                                                    <img style="width:500px;margin-bottom:50px;" src="data:image/jpeg;base64, {{ img }}">
-                                                {% endfor %} -->
-                                               
-                                                <!-- <div style="margin-top:30px;">
-                                                    <p class="extra-info-text" style="font-weight: 500;">Enter a one sentence description of the memory shown above:</p>
+                                                <div style="margin-top:20px;">
+                                                    <p class="extra-info-text" style="font-weight: 500;">Enter your zipcode</p>
                                                     <div>
-                                                        <input id="input" type="text" name="redescription" placeholder="I played with my dog.">
+                                                        <input id="input" type="text" name="zipcode" placeholder="Enter zipcode."></input>
                                                     </div>
                                                     <p class="extra-info-text" style="font-weight:500;font-size:16px;color:red;">{{ errorMessage }}</p>
-                                                </div> -->
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="cta-btn">
-                                        <!-- <button type="submit" class="btn btn-outlined--white btn-with-icon btn-height-60">Results</button> -->
+                                        <button type="submit" class="btn btn-outlined--white btn-with-icon btn-height-60" id="upload-button" >See Results</button>
                                         <!-- <p class="extra-info-text">No credit card required</p> -->
                                     </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <div class="container">
+            <div class="row" style="text-align: center;">
+                {% if nearby %}
+                    {% for item in nearby %}
+                        <div class="col-4" style="padding: 10px 10px">
+                            <div style="background-color:#48bbed;height:250px;color:white;">
+                                    <h3 style="padding:50px 0px;padding-top: 60px;">{{ item[0] }}</h3>
+                                    <h5>{{ item[1] }}</h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% if not nearby %}
+                    <div class="col-4" style="padding: 10px 10px">
+                        <div style="background-color:#48bbed;height:250px;color:white;">
+                                <h3 style="padding:50px 0px;padding-top: 60px;">Person Name</h3>
+                                <h5>Address</h5>
+                        </div>
+                    </div>
+                    <div class="col-4" style="padding: 10px 10px">
+                        <div style="background-color:#48bbed;height:250px;color:white;">
+                                <h3 style="padding:50px 0px;padding-top: 60px;">Person Name</h3>
+                                <h5>Address</h5>
+                        </div>
+                    </div>
+                    <div class="col-4" style="padding: 10px 10px">
+                        <div style="background-color:#48bbed;height:250px;color:white;">
+                                <h3 style="padding:50px 0px;padding-top: 60px;">Person Name</h3>
+                                <h5>Address</h5>
+                        </div>
+                    </div>
+                {% endif %}
 
-        <section class="testimonial-section" id="graphs">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12" >
-                        <div class="section-title">
-                            <h2 style="margin-top: -80px;">Real-time Object Detection</h2>
-                            <p>We implemented the YOLO real-time object detection algorithm and used computer vision with opencv to detect motorcyclists and bikers, check whether they're wearing helmets, and if not, capture an image of their license plates.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="section-title">
-                            <!-- <h4 style="margin-bottom: 30px;">Change in memory score over time</h4> -->
-                            <!-- <p>Change in memory score over time</p> -->
-                            <img style="width:400px;" src="{{ memory_vs_time_rf }}">
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="section-title">
-                    We designed and tested prototypes that helped identify pain points in the account
-                    creation process. Together, we shaped the new standard
-                </div> -->
             </div>
-        </section>
-
-        <section class="testimonial-section" id="statistics">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12" >
-                        <div class="section-title">
-                            <h2 style="margin-top: -80px;">Detailled Statistics</h2>
-                            <!-- <p>We used 2 different machine learning algorithms below: Random Forest regression and Support Vector regression. The Random Forest algorithm takes into account even the slightest changes in memory scores while the Support Vector regression algorithm creates a broader overview, helping you get two diverse perspectives on your change in memory over time!</p> -->
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="section-title">
-                            <h4 style="margin-bottom: 0px;">{{ perfect_rate }}%  of motorized two-wheel riders wore a helmet.</h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="section-title">
-                            <h4 style="margin-bottom: 0px;">{{ forget_rate }} people were fined for not wearing a helmet.</h4>
-                        </div>
-                    </div>
-                    <!-- <div class="col-lg-12">
-                        <div class="section-title">
-                            <h4 style="margin-bottom: 90px;">{{ type_rate }}%.</h4>
-                        </div>
-                    </div> -->
+            <div class="row" style="margin-top: 70px;">
+                <div class="col-12" style="padding: 10px 10px">
+                    <div id="map" style="width: 1120px; height: 800px;"></div>
                 </div>
             </div>
-        </section>
+          </div>
+
+
+          <script type="text/javascript">
+            var locations = [
+              ['Dr. Lynn Margolies', 42.330114, -71.191994, 4],
+              ['Newton Therapy Cooperative', 42.330182, -71.195128, 5],
+              ['Mark Sorensen, Ph.D.', 42.321453, -71.207011, 3],
+              ['Newton Psychotherapy Associates', 42.349807, -71.219341, 2],
+              ['Rachel Dresner Jacobs, Ph.D.', 42.336421, -71.202016, 1],
+              ['Newton Wellesley Psychotherapy', 42.331212, -71.194001, 6],
+              ['Cognitive Behavior Therapies', 42.336421, -71.202016, 7],
+              ['Margolies', 42.330114, -71.191994, 8],
+              ['Blackburn Abigail B', 42.329698, -71.193330, 9],
+            ];
+        
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 10,
+              center: new google.maps.LatLng(42.330114, -71.191994),
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+        
+            var infowindow = new google.maps.InfoWindow();
+        
+            var marker, i;
+        
+            for (i = 0; i < locations.length; i++) {  
+              marker = new google.maps.Marker({
+                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                map: map
+              });
+        
+              google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                  infowindow.setContent(locations[i][0]);
+                  infowindow.open(map, marker);
+                }
+              })(marker, i));
+            }
+          </script>
 
         <section class="footer-section">
             <div class="container">
@@ -228,5 +267,7 @@
     <script src="{{ url_for('static', filename='plugins/slick-1.8.1/slick.min.js') }}"></script>
     <script src="{{ url_for('static', filename='plugins/meanmenu/jquery.meanmenu.js') }}"></script>
     <script src="{{ url_for('static', filename='js/active.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/custom-file-input.js') }}"></script>
 </body>
 </html>
+
