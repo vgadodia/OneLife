@@ -150,7 +150,7 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <div class="section-title">
-                                    <h2 style="margin-top: -50px;">Upload an image of the text or copy and paste it in the text box.</h2>
+                                    <h2 style="margin-top: -50px;">Get help and emotional support from our forums.</h2>
                                     <!-- <p>We designed and tested prototypes that helped identify pain points in the account
                                         creation process. Together, we shaped the new standard.</p> -->
                                 </div>
@@ -170,7 +170,7 @@
                             <div class="cta-content" >
                                 <!-- <span class="title-small-text">Ready to take action?</span> -->
                                 <!-- <h2>Upload an image of the text or copy and paste it in the text box.</h2> -->
-                                <p>We use an advanced machine learning algorithm to analyze the text and provide you with high quality results with over 90% accuracy.</p>
+                                <p>Enter a room id to join anonymously!</p>
                                 <br>
                                 <form method="POST">
                                     {{ form.hidden_tag() }}
@@ -185,11 +185,11 @@
                 </div>
             </div>
         </section>
-<<<<<<< HEAD
+
         <section class="footer-section">
             <div class="container">
                 <div class="copyright">
-                    <p>©2020 HelmProtech. All rights reserved. </p>
+                    <p>©2020 OneLife. All rights reserved. </p>
                 </div>
             </div>
         </section>
@@ -202,42 +202,6 @@
     <script src="{{ url_for('static', filename='js/active.js') }}"></script>
     <script src="{{ url_for('static', filename='js/custom-file-input.js') }}"></script>
 </body>
-=======
-        
-        <section class="cta-section" style="margin-top:-100px;padding-bottom:100px;">
-          <div class="container" >
-              <div class="cta-inner-wrapper" style="background-color: #48bbed;">
-                  <div class="row justify-content-center">
-                      <div class="col-xl-7 col-lg-8" >
-                          <div class="cta-content">
-                              <!-- <span class="title-small-text">Ready to take action?</span> -->
-                              <!-- <h2>Try alz.vision!</h2> -->
 
-                              <h3 style="color:white;margin-bottom:50px;">Join our community!</h3>
-                              <!-- <h2 style="color:white;margin-top:50px;">NJ60BYD</h2> -->
-
-                              <!-- <h4 style="background-color: white;width:100%;">d</h4> -->
-
-                              <form method="POST">
-                                {{ form.hidden_tag() }}
-                                {{ form.name.label }}: {{ form.name() }} {% for error in form.name.errors %}{{ error }}{% endfor %}<br>
-                                {{ form.room.label }}: {{ form.room() }} {% for error in form.room.errors %}{{ error }}{% endfor %}<br>
-                                {{ form.submit() }}
-                              </form>
-
-                                  
-                                  <div class="cta-btn">
-                                      <!-- <button type="submit" class="btn btn-outlined--white btn-with-icon btn-height-60">Results</button> -->
-                                      <!-- <p class="extra-info-text">No credit card required</p> -->
-                                  </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </section>
-        </div>
-    </body>
->>>>>>> 8a05094f925375b3ab808402703879a35912fa8e
 </html>
 
