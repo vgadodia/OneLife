@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/component.css') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/demo.css') }}"/>
-    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
     <script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
     <style>
         #input {
@@ -207,52 +206,7 @@
                 {% endif %}
 
             </div>
-            <div class="row" style="margin-top: 70px;">
-                <div class="col-12" style="padding: 10px 10px">
-                    <div id="map" style="width: 1120px; height: 800px;"></div>
-                </div>
-            </div>
           </div>
-
-
-          <script type="text/javascript">
-            var locations = [
-              ['Dr. Lynn Margolies', 42.330114, -71.191994, 4],
-              ['Newton Therapy Cooperative', 42.330182, -71.195128, 5],
-              ['Mark Sorensen, Ph.D.', 42.321453, -71.207011, 3],
-              ['Newton Psychotherapy Associates', 42.349807, -71.219341, 2],
-              ['Rachel Dresner Jacobs, Ph.D.', 42.336421, -71.202016, 1],
-              ['Newton Wellesley Psychotherapy', 42.331212, -71.194001, 6],
-              ['Cognitive Behavior Therapies', 42.336421, -71.202016, 7],
-              ['Margolies', 42.330114, -71.191994, 8],
-              ['Blackburn Abigail B', 42.329698, -71.193330, 9],
-            ];
-        
-
-            var map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 10,
-              center: new google.maps.LatLng(42.330114, -71.191994),
-              mapTypeId: google.maps.MapTypeId.ROADMAP
-            });
-        
-            var infowindow = new google.maps.InfoWindow();
-        
-            var marker, i;
-        
-            for (i = 0; i < locations.length; i++) {  
-              marker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                map: map
-              });
-        
-              google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                return function() {
-                  infowindow.setContent(locations[i][0]);
-                  infowindow.open(map, marker);
-                }
-              })(marker, i));
-            }
-          </script>
 
         <section class="footer-section">
             <div class="container">
