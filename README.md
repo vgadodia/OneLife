@@ -1,3 +1,8 @@
+# OneLife
+A machine learning web app to classify suicidal messages
+
+try it out! https://onel1fe.herokuapp.com/
+
 # Inspiration
 Suicide and depression are major national public health issues in countries such as the United States. Just between 1999 and 2014, the average, adjusted for age, annual U.S. suicide rate increased by a staggering 24%. Furthermore, according to NIH, an estimated 17.3 million adults in the United States have at least one major depressive episode. This number represents 7.1% of all U.S. adults. These shocking statistics is what makes suicide and depression a major public health issue across the nation, and it demands a solution to effectively address the problem at this very moment. Therefore, we decided to create OneLife, a health web application aimed at helping people suffering from suicidal or depressive thoughts, as well as equipping people with the right tools to determine if their loved one is having suicidal or depressive thoughts.
 
