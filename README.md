@@ -1,5 +1,5 @@
 # OneLife
-A machine learning web app to classify suicidal messages
+A machine learning web app to equip community members with the tools to help people suffering from suicidal and depressive thoughts.
 
 The Get Help Page and Forum Page work best when run locally. Please navigate to the project directory and type `flask run` in order to run our web application!
 
