@@ -1,7 +1,9 @@
 # OneLife
 A machine learning web app to classify suicidal messages
 
-try it out! https://onel1fe.herokuapp.com/
+The Get Help Page and Forum Page work best when run locally. Please navigate to the project directory and type `flask run` in order to run our web application!
+
+Try it out! https://onel1fe.herokuapp.com/
 
 ## Inspiration
 ### Problem
