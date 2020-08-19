@@ -3,7 +3,7 @@ import urllib.request
 import requests
 from pprint import pprint
 
-API_KEY = "AIzaSyD_ZzLSJXWgCQeONsk0KCf6x3_XKQ610qE"
+API_KEY = ""
 
 def nearby(zip_code):
     lat = float()
