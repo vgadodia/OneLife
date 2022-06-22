@@ -17,7 +17,7 @@ kiwisolver==1.2.0
 MarkupSafe==1.1.1
 matplotlib==3.3.0
 monotonic==1.5
-numpy==1.19.0
+numpy==1.22.0
 Pillow==7.2.0
 pyparsing==2.4.7
 pytesseract==0.3.4
